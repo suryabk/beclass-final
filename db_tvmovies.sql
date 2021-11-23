@@ -14,6 +14,12 @@ CREATE TABLE film(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE types(
+    id INT PRIMARY KEY,
+    type_name VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE poster(
     id_film INT NOT NULL,
     trailer_link VARCHAR(3000),
@@ -42,7 +48,34 @@ CREATE TABLE film_genre(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE tvshows(
+    id_types INT NOT NULL,
+    id_genre INT NOT NULL,
+    id_film INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE movies(
+    id_types INT NOT NULL,
+    id_genre INT NOT NULL,
+    id_film INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 -- Add foreign key for each table
+
+ALTER TABLE tvshows ADD FOREIGN KEY (id_types) REFERENCES types(id);
+
+ALTER TABLE tvshows ADD FOREIGN KEY (id_genre) REFERENCES genre(id);
+
+ALTER TABLE tvshows ADD FOREIGN KEY (id_film) REFERENCES film(id);
+
+ALTER TABLE movies ADD FOREIGN KEY (id_types) REFERENCES types(id);
+
+ALTER TABLE movies ADD FOREIGN KEY (id_genre) REFERENCES genre(id);
+
+ALTER TABLE movies ADD FOREIGN KEY (id_film) REFERENCES film(id);
 
 ALTER TABLE film_genre ADD FOREIGN KEY (id_genre) REFERENCES genre(id);
 
@@ -52,12 +85,17 @@ ALTER TABLE poster ADD FOREIGN KEY (id_film) REFERENCES film(id);
 
 ALTER TABLE film ADD FOREIGN KEY (id_category) REFERENCES category(id);
 
+
 -- Add some data that we wont add in CRUD system
 INSERT INTO category(id, category, age) VALUES 
     (1, "SU", "All Age"),
     (2, "13+", "Above 13 years old"),
     (3, "17+", "Above 17 years old"),
     (4, "21+", "Above 21 years old");
+
+INSERT INTO types(id, type_name) VALUES 
+    (1, "TV Shows"),
+    (2, "Movies");
 
 INSERT INTO genre(id, genre) VALUES 
     (1,"Action"),
@@ -94,4 +132,17 @@ INSERT INTO `film_genre` (`id_genre`, `id_film`) VALUES
 (12, 2),
 (4, 3),
 (6, 3);
+
+INSERT INTO `tvshows` (`id_types`, `id_genre`, `id_film`) VALUES
+(1, 1, 1),
+(1, 11, 1),
+(1, 13, 1),
+(1, 1, 2),
+(1, 12, 2);
+
+INSERT INTO `movies` (`id_types`, `id_genre`, `id_film`) VALUES
+(2, 4, 3),
+(2, 6, 3);
+
+
 
