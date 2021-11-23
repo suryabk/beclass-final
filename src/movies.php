@@ -29,10 +29,20 @@
 </head>
 
 <body>
+    <!-- add navbar -->
+    <?php include "./asset/navbar.php"; ?>
 
-    <?php
-    include "./asset/navbar.php";
-    include "./category_main.php"; ?>
+    <main class="container mt-5 pt-5">
+        <a class="button btn-orange back-btn py-1 mt-1" href="../index.php"><i class="bi bi-arrow-left"></i></a>
+        <h1 class="text-light">Movies</h1>
+
+        <!-- show movies based on genre -->
+        <?php include "./category_main.php"; ?>
+    </main>
+
+    <!-- add footer -->
+    <?php include "./category_footer.php"; ?>
+
 
 </body>
 
