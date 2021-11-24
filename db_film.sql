@@ -65,6 +65,14 @@ CREATE TABLE movies(
 
 -- Add foreign key for each table
 
+ALTER TABLE film_genre ADD FOREIGN KEY (id_genre) REFERENCES genre(id);
+
+ALTER TABLE film_genre ADD FOREIGN KEY (id_film) REFERENCES film(id);
+
+ALTER TABLE poster ADD FOREIGN KEY (id_film) REFERENCES film(id);
+
+ALTER TABLE film ADD FOREIGN KEY (id_category) REFERENCES category(id);
+
 ALTER TABLE tvshows ADD FOREIGN KEY (id_types) REFERENCES types(id);
 
 ALTER TABLE tvshows ADD FOREIGN KEY (id_genre) REFERENCES genre(id);
@@ -76,14 +84,6 @@ ALTER TABLE movies ADD FOREIGN KEY (id_types) REFERENCES types(id);
 ALTER TABLE movies ADD FOREIGN KEY (id_genre) REFERENCES genre(id);
 
 ALTER TABLE movies ADD FOREIGN KEY (id_film) REFERENCES film(id);
-
-ALTER TABLE film_genre ADD FOREIGN KEY (id_genre) REFERENCES genre(id);
-
-ALTER TABLE film_genre ADD FOREIGN KEY (id_film) REFERENCES film(id);
-
-ALTER TABLE poster ADD FOREIGN KEY (id_film) REFERENCES film(id);
-
-ALTER TABLE film ADD FOREIGN KEY (id_category) REFERENCES category(id);
 
 
 -- Add some data that we wont add in CRUD system

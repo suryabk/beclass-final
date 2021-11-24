@@ -10,10 +10,10 @@
                     <a class="nav-link" href="../index.php">Home</a>
                 </li>
                 <li class="nav-item mr-3">
-                    <a class="nav-link" href="tvshows.php">TV Shows</a>
+                    <a class="nav-link" href="tvshows.php">TV Show</a>
                 </li>
                 <li class="nav-item mr-3">
-                    <a class="nav-link" href="movies.php">Movies</a>
+                    <a class="nav-link" href="movies.php">Movie</a>
                 </li>
                 <li class="nav-item mr-3">
                     <a class="nav-link" href="category.php">Category</a>

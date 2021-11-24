@@ -20,8 +20,6 @@
     $query = "SELECT genre.genre FROM film_genre, genre WHERE genre.id = film_genre.id_genre && $id = film_genre.id_film";
     $get_genres = mysqli_query($conn, $query);
 
-    $query = "SELECT types.id FROM tvshows, movies, types WHERE   $id = "
-
     ?>
 
     <title>Movie Details</title>
@@ -49,7 +47,7 @@
                     <h3 class="text text-orange mb-5"><?= $film['year'] ?></h3>
                     <p class="text-light">Director : <?= $film['director'] ?></p>
                     <p class="text-light">Genre : <?php foreach ($get_genres as $genre) {
-                                                        echo $genre['genre'] . " ";
+                                                        echo $genre['genre'] . ", ";
                                                     } ?></p>
                     <p class="text-light">Actor : <?= $film['actor'] ?></p>
                     <div class="row pl-3">

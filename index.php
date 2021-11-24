@@ -36,10 +36,10 @@
                         <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item mr-3">
-                        <a class="nav-link" href="./src/tvshows.php">TV Shows</a>
+                        <a class="nav-link" href="./src/tvshows.php">TV Show</a>
                     </li>
                     <li class="nav-item mr-3">
-                        <a class="nav-link" href="./src/movies.php">Movies</a>
+                        <a class="nav-link" href="./src/movies.php">Movie</a>
                     </li>
                     <li class="nav-item mr-3">
                         <a class="nav-link" href="./src/category.php">Category</a>
