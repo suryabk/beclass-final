@@ -62,17 +62,19 @@
                 $send_genre = mysqli_multi_query($conn, $query);
             }
         }
-        if ($types == "2") {
+        if ($types === "1") {
             $id_types = intval($types);
+            $name_type = "TV Show";
             foreach ($genres as $key => $genre) {
-                $query = "INSERT INTO movies VALUES ($id_types, $genre, $id, );";
-                $send_movies = mysqli_multi_query($conn, $query);
-            }
-        } elseif ($types == "1") {
-            $id_types = intval($types);
-            foreach ($genres as $key => $genre) {
-                $query = "INSERT INTO tvshows VALUES ($id_types, $genre, $id, );";
+                $query = "INSERT INTO tvshows(id_types, id_genre, id_film) VALUES ($id_types, $genre, $id)";
                 $send_tvshows = mysqli_multi_query($conn, $query);
+            }
+        } elseif ($types === "2") {
+            $id_types = intval($types);
+            $name_type = "Movie";
+            foreach ($genres as $key => $genre) {
+                $query = "INSERT INTO movies(id_types, id_genre, id_film) VALUES ($id_types, $genre, $id)";
+                $send_movies = mysqli_multi_query($conn, $query);
             }
         }
 
@@ -94,7 +96,7 @@
             <!-- When the form is successfully submitted it will give a success message  -->
             <?php if (isset($send_film) && $send_film === true) { ?>
                 <div class="alert alert-success col-12  " role="alert">
-                    Successfully Added New Movie
+                    Successfully Added New <?= $name_type; ?>
                 </div>
             <?php } ?>
 
