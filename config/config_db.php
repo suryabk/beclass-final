@@ -7,5 +7,3 @@ $databaseName = "db_film";
 
 // Create connection
 $conn = new mysqli($databaseHost, $databaseUsername, $databasePassword, $databaseName);
-
-?>
