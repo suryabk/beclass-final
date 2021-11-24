@@ -62,26 +62,41 @@
         }
         if (isset($types)) {
             if ($types == "tvshows") {
-                // to update table tvshows, delete existing data first
-                $query = "DELETE FROM movies WHERE id_film = $id";
-                $update_type = mysqli_multi_query($conn, $query);
+                // move data id_genre from table movies to tvshows
+                $query = "SELECT id_genre FROM movies WHERE id_film = $id";
+                $result = mysqli_query($conn, $query);
+                $array = [];
+                while ($idGenre = mysqli_fetch_assoc($result)) {
+                    $idGenres[] = $idGenre['id_genre'];
+                }
 
-                // after that we insert the new datato table tvshows
-                foreach ($genres as $genre) :
+                // after that we insert the new data to table tvshows
+                foreach ($idGenres as $genre) :
                     $query = "INSERT INTO tvshows (id_types, id_genre, id_film) VALUES (1 , $genre, $id);";
                     $send_genre = mysqli_multi_query($conn, $query);
                 endforeach;
+                // to update table tvshows, delete existing data first
+                $query = "DELETE FROM movies WHERE id_film = $id";
+                $update_type = mysqli_multi_query($conn, $query);
             } elseif ($types == "movies") {
+
+                // move data id_genre from table tvshows to movies
+                $query = "SELECT id_genre FROM tvshows WHERE id_film = $id";
+                $result = mysqli_query($conn, $query);
+                $array = [];
+                while ($idGenre = mysqli_fetch_assoc($result)) {
+                    $idGenres[] = $idGenre['id_genre'];
+                }
+
+                // after that we insert the new data to table movies
+                foreach ($idGenres as $genre) :
+                    $query = "INSERT INTO movies (id_types, id_genre, id_film) VALUES (2 , $genre, $id);";
+                    $send_genre = mysqli_multi_query($conn, $query);
+                endforeach;
 
                 // to update table movies, delete existing data first
                 $query = "DELETE FROM tvshows WHERE id_film=$id";
                 $update_type = mysqli_multi_query($conn, $query);
-
-                // after that we insert the new datato table movies
-                foreach ($genres as $genre) :
-                    $query = "INSERT INTO movies (id_types, id_genre, id_film) VALUES (2 , $genre, $id);";
-                    $send_genre = mysqli_multi_query($conn, $query);
-                endforeach;
             }
         }
     }
