@@ -25,7 +25,7 @@
     // prevent data duplication
     $genres = array_unique($genres);
     ?>
-    <title>TV Shows</title>
+    <title>TV Show</title>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
     <?php include "./asset/navbar.php"; ?>
     <main class="container mt-5 pt-5">
         <a class="button btn-orange back-btn py-1 mt-1" href="../index.php"><i class="bi bi-arrow-left"></i></a>
-        <h1 class="text-light">TV Shows</h1>
+        <h1 class="text-light">TV Show</h1>
 
         <!-- show tvshows based on genre -->
         <?php foreach ($genres as $key => $genre) : ?>
