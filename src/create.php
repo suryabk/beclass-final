@@ -62,25 +62,17 @@
                 $send_genre = mysqli_multi_query($conn, $query);
             }
         }
-
-        // Insert into table tvshows or movies
-        if (isset($send_genre) && $send_genre === true) {
-
-            // because types = string, change string to integer
-            $type = intval($types);
-            // Insert into table tvshow
-            if ($type === 1) {
-                foreach ($genres as $key => $genre) {
-                    $query = "INSERT INTO tvshows(id_types, id_genre, id_film) VALUES ($types, $genre, $id);";
-                    $send_tvshows = mysqli_multi_query($conn, $query);
-                }
+        if ($types == "2") {
+            $id_types = intval($types);
+            foreach ($genres as $key => $genre) {
+                $query = "INSERT INTO movies VALUES ($id_types, $genre, $id, );";
+                $send_movies = mysqli_multi_query($conn, $query);
             }
-            // Insert into table movies
-            if ($type === 2) {
-                foreach ($genres as $key => $genre) {
-                    $query = "INSERT INTO movies(id_types, id_genre, id_film) VALUES ($types, $genre, $id);";
-                    $send_movies = mysqli_multi_query($conn, $query);
-                }
+        } elseif ($types == "1") {
+            $id_types = intval($types);
+            foreach ($genres as $key => $genre) {
+                $query = "INSERT INTO tvshows VALUES ($id_types, $genre, $id, );";
+                $send_tvshows = mysqli_multi_query($conn, $query);
             }
         }
 
@@ -96,7 +88,7 @@
 
     <main class="container body-crud px-5 text-light py-5">
         <a class="button btn-orange back-btn text-dark py-1" href="../index.php"><i class="bi bi-arrow-left"></i></a>
-        <h1 class="text-orange mb-5">Add New Movie</h1>
+        <h1 class="text-orange mb-5">Add New TV Show / Movie</h1>
 
         <form class="row g-3" action="" method="POST">
             <!-- When the form is successfully submitted it will give a success message  -->
