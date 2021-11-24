@@ -10,7 +10,7 @@
     ini_set('display_errors', '0');
 
     // get movie data based on each genre from database
-    $query = "SELECT * FROM movies, film, genre, poster WHERE movies.id_types && film.id = movies.id_film && film.id = poster.id_film && genre.id = movies.id_genre";
+    $query = "SELECT * FROM movies, poster, film, genre WHERE movies.id_film = film.id && movies.id_film = poster.id_film && movies.id_genre = genre.id";
 
     $get_film_genre = mysqli_query($conn, $query);
 
@@ -37,7 +37,19 @@
         <h1 class="text-light">Movies</h1>
 
         <!-- show movies based on genre -->
-        <?php include "./category_main.php"; ?>
+        <?php foreach ($genres as $key => $genre) : ?>
+            <!-- display any genre existing -->
+            <h3 class="text-orange col-12 mt-5"><?= $genre ?></h3>
+
+            <!-- displays a card containing movie data according to the genre -->
+            <?php
+            $query = "SELECT * FROM movies, film, genre, poster WHERE film.id = movies.id_film && film.id = poster.id_film && genre.id = movies.id_genre && genre LIKE '$genre'";
+            $film_by_genre = mysqli_query($conn, $query);
+
+            //grouping movies based on genre
+            include './grouping_genre.php';
+            ?>
+        <?php endforeach; ?>
     </main>
 
     <!-- add footer -->

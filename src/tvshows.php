@@ -9,8 +9,8 @@
     // make the error message not display on the page
     ini_set('display_errors', '0');
 
-    // get movie data based on each genre from database
-    $query = "SELECT * FROM tvshows, film, genre, poster WHERE tvshows.id_types && film.id = tvshows.id_film && film.id = poster.id_film && genre.id = tvshows.id_genre";
+    // get tvshows data based on each genre from database
+    $query = "SELECT * FROM tvshows, poster, film, genre WHERE tvshows.id_film = film.id && poster.id_film = tvshows.id_film && tvshows.id_genre = genre.id";
 
     $get_film_genre = mysqli_query($conn, $query);
 
@@ -36,8 +36,20 @@
         <a class="button btn-orange back-btn py-1 mt-1" href="../index.php"><i class="bi bi-arrow-left"></i></a>
         <h1 class="text-light">TV Shows</h1>
 
-        <!-- show movies based on genre -->
-        <?php include "./category_main.php"; ?>
+        <!-- show tvshows based on genre -->
+        <?php foreach ($genres as $key => $genre) : ?>
+            <!-- display any genre existing -->
+            <h3 class="text-orange col-12 mt-5"><?= $genre ?></h3>
+
+            <!-- displays a card containing movie data according to the genre -->
+            <?php
+            $query = "SELECT * FROM tvshows, film, genre, poster WHERE film.id = tvshows.id_film && film.id = poster.id_film && genre.id = tvshows.id_genre && genre LIKE '$genre'";
+            $film_by_genre = mysqli_query($conn, $query);
+
+            //grouping tvshows based on genre
+            include './grouping_genre.php';
+            ?>
+        <?php endforeach; ?>
     </main>
 
     <!-- add footer -->

@@ -134,15 +134,14 @@ INSERT INTO `film_genre` (`id_genre`, `id_film`) VALUES
 (6, 3);
 
 INSERT INTO `tvshows` (`id_types`, `id_genre`, `id_film`) VALUES
-(1, 1, 1),
-(1, 11, 1),
-(1, 13, 1),
-(1, 1, 2),
-(1, 12, 2);
+(1, 4, 3),
+(1, 6, 3);
 
 INSERT INTO `movies` (`id_types`, `id_genre`, `id_film`) VALUES
-(2, 4, 3),
-(2, 6, 3);
-
+(2, 1, 1),
+(2, 11, 1),
+(2, 13, 1),
+(2, 1, 2),
+(2, 12, 2);
 
 

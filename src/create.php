@@ -29,6 +29,7 @@
         $trailer = $_POST['trailer'];
         $synopsis = $_POST['synopsis'];
         $thumbnail = $_POST['thumbnail'];
+
         // provide default value when the user doesn't fill in
         if ($thumbnail === "") {
             $thumbnail = "https://res.cloudinary.com/dqqtuqump/image/upload/w_auto,q_auto,f_auto/v1637334674/php-crud/thumbnail_eiscsy.jpg";
@@ -61,8 +62,28 @@
                 $send_genre = mysqli_multi_query($conn, $query);
             }
         }
-        if (isset($send_genre)) {
+
+        // Insert into table tvshows or movies
+        if (isset($send_genre) && $send_genre === true) {
+
+            // because types = string, change string to integer
+            $type = intval($types);
+            // Insert into table tvshow
+            if ($type === 1) {
+                foreach ($genres as $key => $genre) {
+                    $query = "INSERT INTO tvshows(id_types, id_genre, id_film) VALUES ($types, $genre, $id);";
+                    $send_tvshows = mysqli_multi_query($conn, $query);
+                }
+            }
+            // Insert into table movies
+            if ($type === 2) {
+                foreach ($genres as $key => $genre) {
+                    $query = "INSERT INTO movies(id_types, id_genre, id_film) VALUES ($types, $genre, $id);";
+                    $send_movies = mysqli_multi_query($conn, $query);
+                }
+            }
         }
+
         $id += 1;
     }
     ?>
@@ -131,12 +152,12 @@
             </div>
             <div class="form-group col-md-8">
                 <label class="form-label">Genre</label><br>
-                <?php foreach ($result_genre as $i => $result) { ?>
+                <?php foreach ($result_genre as $i => $result) : ?>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" name="genre[]" value="<?= $i + 1; ?>">
                         <label class="form-check-label" for="genre"><?= $result['genre'] ?></label>
                     </div>
-                <?php }; ?>
+                <?php endforeach; ?>
             </div>
             <div class="form-group col-md-12">
                 <label for="synopsis" class="form-label">Synopsis</label>
