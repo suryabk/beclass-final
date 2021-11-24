@@ -10,7 +10,7 @@
     ini_set('display_errors', '0');
 
     // get tvshows data based on each genre from database
-    $query = "SELECT * FROM tvshows, poster, film, genre WHERE tvshows.id_film = film.id && poster.id_film = tvshows.id_film && tvshows.id_genre = genre.id";
+    $query = "SELECT * FROM tvshows, poster, film, genre WHERE tvshows.id_film = film.id && poster.id_film = tvshows.id_film && tvshows.id_genre = genre.id ORDER BY tvshows.id_genre ASC";
 
     $get_film_genre = mysqli_query($conn, $query);
 
@@ -47,13 +47,13 @@
             $film_by_genre = mysqli_query($conn, $query);
 
             //grouping tvshows based on genre
-            include './grouping_genre.php';
+            include './asset/category_genre.php';
             ?>
         <?php endforeach; ?>
     </main>
 
     <!-- add footer -->
-    <?php include "./category_footer.php"; ?>
+    <?php include "./asset/category_footer.php"; ?>
 
 </body>
 

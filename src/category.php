@@ -10,7 +10,7 @@
   ini_set('display_errors', '0');
 
   // get movie data based on each genre from database
-  $query = "SELECT * FROM film_genre, film, genre, poster WHERE film.id = film_genre.id_film && film.id = poster.id_film && genre.id = film_genre.id_genre";
+  $query = "SELECT * FROM film_genre, film, genre, poster WHERE film.id = film_genre.id_film && film.id = poster.id_film && genre.id = film_genre.id_genre ORDER BY film_genre.id_genre ASC";
   $get_film_genre = mysqli_query($conn, $query);
 
   // declare an empty genre array 
@@ -44,12 +44,12 @@
       $film_by_genre = mysqli_query($conn, $query);
 
       //grouping category based on genre
-      include './grouping_genre.php';
+      include './asset/category_genre.php';
       ?>
     <?php endforeach; ?>
   </main>
 
-  <?php include "./category_footer.php"; ?>
+  <?php include "./asset/category_footer.php"; ?>
 </body>
 
 </html>
