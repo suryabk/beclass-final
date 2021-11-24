@@ -62,14 +62,14 @@
                 $send_genre = mysqli_multi_query($conn, $query);
             }
         }
-        if ($types === "1") {
+        if ($types == "1") {
             $id_types = intval($types);
             $name_type = "TV Show";
             foreach ($genres as $key => $genre) {
                 $query = "INSERT INTO tvshows(id_types, id_genre, id_film) VALUES ($id_types, $genre, $id)";
                 $send_tvshows = mysqli_multi_query($conn, $query);
             }
-        } elseif ($types === "2") {
+        } elseif ($types == "2") {
             $id_types = intval($types);
             $name_type = "Movie";
             foreach ($genres as $key => $genre) {
