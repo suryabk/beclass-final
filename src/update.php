@@ -11,7 +11,7 @@
 
     // get genre data from database to use on form
     $getGenre = "SELECT genre FROM genre";
-    $resultGenre = mysqli_query($conn, $get_genre);
+    $resultGenre = mysqli_query($conn, $getGenre);
 
     // get id sent from movie-details page
     $id = $_GET['id'];
