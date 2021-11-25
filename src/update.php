@@ -54,10 +54,24 @@
             $query = "DELETE FROM film_genre WHERE id_film=$id";
             $updateGenre = mysqli_multi_query($conn, $query);
 
+            $query = "DELETE FROM tvshows WHERE id_film=$id";
+            $updateGenreTV = mysqli_multi_query($conn, $query);
+
+            $query = "DELETE FROM movies WHERE id_film=$id";
+            $updateGenreMovie = mysqli_multi_query($conn, $query);
+
             // after that we insert the new datato table film_genre
             foreach ($genres as $genre) {
                 $query = "INSERT INTO film_genre(id_genre, id_film) VALUES ($genre,$id);";
                 $sendGenre = mysqli_multi_query($conn, $query);
+
+                $query = "INSERT INTO tvshows(id_types, id_genre, id_film) VALUES (1, $genre,$id)";
+                $sendGenreTV = mysqli_multi_query($conn, $query);
+
+                if (!$sendGenreTV) {
+                    $query = "INSERT INTO movies(id_types, id_genre, id_film) VALUES (2, $genre,$id)";
+                    $sendGenreMovie = mysqli_multi_query($conn, $query);
+                }
             }
         }
         if (isset($types)) {
