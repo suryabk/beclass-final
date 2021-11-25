@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    include "./asset/header.php";
+    include "./templates/header.php";
     require "../config/config_db.php";
 
     // make the error message not display on the page
@@ -28,7 +28,7 @@
 <body>
 
     <?php
-    include "./asset/navbar.php";
+    include "./templates/navbar.php";
     foreach ($get_films as $film) { ?>
 
         <header>

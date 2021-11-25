@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    include "./asset/header.php";
+    include "./templates/header.php";
     require "../config/config_db.php";
 
     // make the error message not display on the page
@@ -106,7 +106,7 @@
 
 <body>
 
-    <?php include "./asset/navbar.php"; ?>
+    <?php include "./templates/navbar.php"; ?>
 
     <a class="button btn-orange back-btn text-dark py-1" href="./movie-details.php?id=<?= $id ?>"><i class="bi bi-arrow-left"></i></a>
 

@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    include "./asset/header.php";
+    include "./templates/header.php";
     require "../config/config_db.php";
 
     // make the error message not display on the page
@@ -86,7 +86,7 @@
 
 <body>
 
-    <?php include "./asset/navbar.php"; ?>
+    <?php include "./templates/navbar.php"; ?>
 
     <main class="container body-crud px-5 text-light py-5">
         <a class="button btn-orange back-btn text-dark py-1" href="../index.php"><i class="bi bi-arrow-left"></i></a>

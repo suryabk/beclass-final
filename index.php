@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    include "./src/asset/header.php";
+    include "./src/templates/header.php";
     require "./config/config_db.php";
 
     // make the error message not display on the page
@@ -63,13 +63,13 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="./src/pict/eternals.jpg" class="d-block w-100" alt="Eternals Poster">
+                        <img src="./src/images/eternals.jpg" class="d-block w-100" alt="Eternals Poster">
                     </div>
                     <div class="carousel-item">
-                        <img src="./src/pict/ghostbuster.jpg" class="d-block w-100" alt="Ghost Buster Poster">
+                        <img src="./src/images/ghostbuster.jpg" class="d-block w-100" alt="Ghost Buster Poster">
                     </div>
                     <div class="carousel-item">
-                        <img src="./src/pict/rednotice.jpg" class="d-block w-100" alt="Red Notice Poster">
+                        <img src="./src/images/rednotice.jpg" class="d-block w-100" alt="Red Notice Poster">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">

@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    include "./asset/header.php";
+    include "./templates/header.php";
     include "../config/config_db.php";
 
     // make the error message not display on the page
@@ -30,7 +30,7 @@
 
 <body>
     <!-- add navbar -->
-    <?php include "./asset/navbar.php"; ?>
+    <?php include "./templates/navbar.php"; ?>
 
     <main class="container mt-5 pt-5">
         <a class="button btn-orange back-btn py-1 mt-1" href="../index.php"><i class="bi bi-arrow-left"></i></a>
@@ -47,13 +47,13 @@
             $film_by_genre = mysqli_query($conn, $query);
 
             //grouping movies based on genre
-            include './asset/category_genre.php';
+            include './templates/showAllFilm.php';
             ?>
         <?php endforeach; ?>
     </main>
 
     <!-- add footer -->
-    <?php include "./asset/category_footer.php"; ?>
+    <?php include "./templates/footer.php"; ?>
 
 
 </body>
