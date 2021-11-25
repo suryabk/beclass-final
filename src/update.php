@@ -10,15 +10,15 @@
     ini_set('display_errors', '0');
 
     // get genre data from database to use on form
-    $get_genre = "SELECT genre FROM genre";
-    $result_genre = mysqli_query($conn, $get_genre);
+    $getGenre = "SELECT genre FROM genre";
+    $resultGenre = mysqli_query($conn, $get_genre);
 
     // get id sent from movie-details page
     $id = $_GET['id'];
 
     // get data film from database with special conditions according to the id sent
     $query = "SELECT * FROM film, poster WHERE film.id = poster.id_film && film.id =" . $id;
-    $get_films = mysqli_query($conn, $query);
+    $getFilms = mysqli_query($conn, $query);
 
     // get data form from POST method
     if (isset($_POST['submit'])) {
@@ -42,27 +42,29 @@
         } else {
             $query = "UPDATE film SET title='$title' ,year='$year' ,director='$director' ,actor='$actor' ,id_category='$category' WHERE id=$id";
         }
-        $update_film = mysqli_query($conn, $query);
+        $updateFilm = mysqli_query($conn, $query);
 
         //update table poster
-        if (isset($update_film) && $update_film === true) {
+        if (isset($updateFilm) && $updateFilm === true) {
             $query = "UPDATE poster SET trailer_link='$trailer',thumbnail='$thumbnail',w_poster='$wPoster' WHERE id_film='$id'";
-            $update_poster = mysqli_query($conn, $query);
+            $updatePoster = mysqli_query($conn, $query);
         }
         if (isset($genres)) {
             // to update table film_genre, delete existing data first
             $query = "DELETE FROM film_genre WHERE id_film=$id";
-            $update_genre = mysqli_multi_query($conn, $query);
+            $updateGenre = mysqli_multi_query($conn, $query);
 
             // after that we insert the new datato table film_genre
             foreach ($genres as $genre) {
                 $query = "INSERT INTO film_genre(id_genre, id_film) VALUES ($genre,$id);";
-                $send_genre = mysqli_multi_query($conn, $query);
+                $sendGenre = mysqli_multi_query($conn, $query);
             }
         }
         if (isset($types)) {
-            if ($types == "tvshows") {
-                // move data id_genre from table movies to tvshows
+            // user choose type film as tvshows
+            if ($types == "tvshows") :
+
+                // select data id_genre from table movies to tvshows
                 $query = "SELECT id_genre FROM movies WHERE id_film = $id";
                 $result = mysqli_query($conn, $query);
                 $array = [];
@@ -73,14 +75,17 @@
                 // after that we insert the new data to table tvshows
                 foreach ($idGenres as $genre) :
                     $query = "INSERT INTO tvshows (id_types, id_genre, id_film) VALUES (1 , $genre, $id);";
-                    $send_genre = mysqli_multi_query($conn, $query);
+                    $sendGenre = mysqli_multi_query($conn, $query);
                 endforeach;
-                // to update table tvshows, delete existing data first
-                $query = "DELETE FROM movies WHERE id_film = $id";
-                $update_type = mysqli_multi_query($conn, $query);
-            } elseif ($types == "movies") {
 
-                // move data id_genre from table tvshows to movies
+                // to update table tvshows, delete previous data from table movies
+                $query = "DELETE FROM movies WHERE id_film = $id";
+                $updateType = mysqli_multi_query($conn, $query);
+
+            // user choose type film as movies
+            elseif ($types == "movies") :
+
+                // select data id_genre from table tvshows to movies
                 $query = "SELECT id_genre FROM tvshows WHERE id_film = $id";
                 $result = mysqli_query($conn, $query);
                 $array = [];
@@ -91,13 +96,13 @@
                 // after that we insert the new data to table movies
                 foreach ($idGenres as $genre) :
                     $query = "INSERT INTO movies (id_types, id_genre, id_film) VALUES (2 , $genre, $id);";
-                    $send_genre = mysqli_multi_query($conn, $query);
+                    $sendGenre = mysqli_multi_query($conn, $query);
                 endforeach;
 
-                // to update table movies, delete existing data first
+                // to update table movies, delete previous data from table
                 $query = "DELETE FROM tvshows WHERE id_film=$id";
-                $update_type = mysqli_multi_query($conn, $query);
-            }
+                $updateType = mysqli_multi_query($conn, $query);
+            endif;
         }
     }
     ?>
@@ -112,13 +117,13 @@
 
     <main class="container body-crud px-5 text-light py-5">
         <h1 class="text-orange mb-5">Update TV / Movie</h1>
-        <?php foreach ($get_films as $film) : ?>
+        <?php foreach ($getFilms as $film) : ?>
 
             <!-- The form has been filled from some data obtained from the database, so the user only changes the desired data -->
             <form class="row g-3" action="" method="POST">
 
                 <!-- When the form is successfully submitted it will give a success message  -->
-                <?php if (isset($update_film) && $update_film === true) { ?>
+                <?php if (isset($updateFilm) && $updateFilm === true) { ?>
                     <div class="alert alert-success col-12" role="alert">
                         Successfully Edit TV / Movie
                     </div>
@@ -170,7 +175,7 @@
                 </div>
                 <div class="form-group col-md-8">
                     <label class="form-label">Genre</label><br>
-                    <?php foreach ($result_genre as $i => $result) : ?>
+                    <?php foreach ($resultGenre as $i => $result) : ?>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="genre[]" value="<?= $i + 1; ?>">
                             <label class="form-check-label" for="genre"><?= $result['genre']; ?></label>

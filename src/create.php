@@ -10,8 +10,8 @@
     ini_set('display_errors', '0');
 
     // get genre data from database to use on form
-    $get_genre = "SELECT genre FROM genre";
-    $result_genre = mysqli_query($conn, $get_genre);
+    $getGenre = "SELECT genre FROM genre";
+    $resultGenre = mysqli_query($conn, $getGenre);
 
     // get id sent from index page
     $id = $_GET['id'];
@@ -48,35 +48,35 @@
 
         // Insert into table film
         $query = "INSERT INTO film (id,title,year,director,actor,synopsis,id_category) VALUES ('$id', '$title', '$year', '$director', '$actor', '$synopsis', '$category');";
-        $send_film = mysqli_query($conn, $query);
+        $sendFilm = mysqli_query($conn, $query);
 
         //insert into table poster
-        if (isset($send_film) && $send_film === true) {
+        if (isset($sendFilm) && $sendFilm === true) {
             $query = "INSERT INTO poster(trailer_link,thumbnail,w_poster,id_film) VALUES ('$trailer','$thumbnail','$wPoster','$id');";
-            $send_poster = mysqli_query($conn, $query);
+            $sendPoster = mysqli_query($conn, $query);
         }
-        if (isset($send_poster) && $send_poster === true) {
+        if (isset($sendPoster) && $sendPoster === true) {
             // Insert into table film_genre
             foreach ($genres as $key => $genre) {
                 $query = "INSERT INTO film_genre(id_genre, id_film) VALUES ($genre,$id);";
-                $send_genre = mysqli_multi_query($conn, $query);
+                $sendGenre = mysqli_multi_query($conn, $query);
             }
         }
-        if ($types == "1") {
-            $id_types = intval($types);
-            $name_type = "TV Show";
+        if ($types == "1") :
+            $idTypes = intval($types);
+            $nameType = "TV Show";
             foreach ($genres as $key => $genre) {
-                $query = "INSERT INTO tvshows(id_types, id_genre, id_film) VALUES ($id_types, $genre, $id)";
-                $send_tvshows = mysqli_multi_query($conn, $query);
+                $query = "INSERT INTO tvshows(id_types, id_genre, id_film) VALUES ($idTypes, $genre, $id)";
+                $sendTvshows = mysqli_multi_query($conn, $query);
             }
-        } elseif ($types == "2") {
-            $id_types = intval($types);
-            $name_type = "Movie";
+        elseif ($types == "2") :
+            $idTypes = intval($types);
+            $nameType = "Movie";
             foreach ($genres as $key => $genre) {
-                $query = "INSERT INTO movies(id_types, id_genre, id_film) VALUES ($id_types, $genre, $id)";
-                $send_movies = mysqli_multi_query($conn, $query);
+                $query = "INSERT INTO movies(id_types, id_genre, id_film) VALUES ($idTypes, $genre, $id)";
+                $sendMovies = mysqli_multi_query($conn, $query);
             }
-        }
+        endif;
 
         $id += 1;
     }
@@ -94,9 +94,9 @@
 
         <form class="row g-3" action="" method="POST">
             <!-- When the form is successfully submitted it will give a success message  -->
-            <?php if (isset($send_film) && $send_film === true) { ?>
+            <?php if (isset($sendFilm) && $sendFilm === true) { ?>
                 <div class="alert alert-success col-12  " role="alert">
-                    Successfully Added New <?= $name_type; ?>
+                    Successfully Added New <?= $nameType; ?>
                 </div>
             <?php } ?>
 
@@ -146,7 +146,7 @@
             </div>
             <div class="form-group col-md-8">
                 <label class="form-label">Genre</label><br>
-                <?php foreach ($result_genre as $i => $result) : ?>
+                <?php foreach ($resultGenre as $i => $result) : ?>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" name="genre[]" value="<?= $i + 1; ?>">
                         <label class="form-check-label" for="genre"><?= $result['genre'] ?></label>

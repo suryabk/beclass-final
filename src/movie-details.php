@@ -14,7 +14,7 @@
 
     // get data film from database with special conditions according to the id sent
     $query = "SELECT * FROM film, poster WHERE film.id = poster.id_film && $id = film.id";
-    $get_films = mysqli_query($conn, $query);
+    $getFilms = mysqli_query($conn, $query);
 
     // get data genre from database with special conditions according to the id sent
     $query = "SELECT genre.genre FROM film_genre, genre WHERE genre.id = film_genre.id_genre && $id = film_genre.id_film";
@@ -29,7 +29,7 @@
 
     <?php
     include "./templates/navbar.php";
-    foreach ($get_films as $film) { ?>
+    foreach ($getFilms as $film) { ?>
 
         <header>
             <a class="button btn-orange back-btn py-1 mt-1" href="../index.php"><i class="bi bi-arrow-left"></i></a>

@@ -11,12 +11,12 @@
 
     // get data film from database
     $query = "SELECT * FROM film, poster WHERE film.id = poster.id_film";
-    $get_films = mysqli_query($conn, $query);
+    $getFilms = mysqli_query($conn, $query);
 
     // get latest id film for new film to be added
-    $get_latest_id = NULL;
-    foreach ($get_films as $key => $film) {
-        $get_latest_id = $film["id"];
+    $getLatestId = NULL;
+    foreach ($getFilms as $key => $film) {
+        $getLatestId = $film["id"];
     }
     ?>
     <title>NETFLOX</title>
@@ -87,12 +87,12 @@
     <main class="container mt-5 pt-5">
         <h3 class="text-center text-orange">Watch Now</h3>
         <!-- Send latest id to create page -->
-        <a href="./src/create.php?id=<?= $get_latest_id + 1 ?>" class="btn btn-orange d-block mx-auto mt-5 col-md-3 col-lg-2 col-sm-4 col-5">Add New Movie +</i></a>
+        <a href="./src/create.php?id=<?= $getLatestId + 1 ?>" class="btn btn-orange d-block mx-auto mt-5 col-md-3 col-lg-2 col-sm-4 col-5">Add New Movie +</i></a>
 
         <!-- Render the card containing the acquired film data, 
         with a condition where there are only 3 cards in one row-->
-        <?php foreach ($get_films as $key => $film) { ?>
-            <?php if ($key === 0) { ?>
+        <?php foreach ($getFilms as $key => $film) :
+            if ($key === 0) : ?>
                 <div class="row mt-5">
                     <div class="card bg-dark text-light mx-auto" style="width: 18rem;">
                         <img src=<?= $film['thumbnail'] ?> class="card-img-top" alt="...">
@@ -102,7 +102,7 @@
                             <a href="./src/movie-details.php?id=<?= $film['id'] ?>" class="btn btn-orange">See Details</a>
                         </div>
                     </div>
-                <?php  } elseif ($key % 3 != 0) { ?>
+                <?php elseif ($key % 3 != 0) : ?>
                     <div class="card bg-dark text-light mx-auto" style="width: 18rem;">
                         <img src=<?= $film['thumbnail'] ?> class="card-img-top" alt="...">
                         <div class="card-body">
@@ -111,7 +111,7 @@
                             <a href="./src/movie-details.php?id=<?= $film['id'] ?>" class="btn btn-orange">See Details</a>
                         </div>
                     </div>
-                <?php  } elseif ($key % 3 === 0) { ?>
+                <?php elseif ($key % 3 === 0) : ?>
                 </div>
                 <div class="row mt-5">
                     <div class="card bg-dark text-light mx-auto" style="width: 18rem;">
@@ -122,8 +122,8 @@
                             <a href="./src/movie-details.php?id=<?= $film['id'] ?>" class="btn btn-orange">See Details</a>
                         </div>
                     </div>
-                <?php  } ?>
-            <?php } ?>
+            <?php endif;
+        endforeach; ?>
                 </div>
     </main>
 

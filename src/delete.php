@@ -6,29 +6,29 @@ $id = $_GET['id'];
 
 // delete data according to the obtained id
 $query = "DELETE FROM film_genre WHERE id_film=$id";
-$delete_genre = mysqli_query($conn, $query);
+$deleteGenre = mysqli_query($conn, $query);
 
 // to perform multiple queries without using multiple_query
-if (isset($delete_genre) && $delete_genre === true) {
+if (isset($deleteGenre) && $deleteGenre === true) {
     $query = "DELETE FROM poster WHERE id_film=$id";
-    $delete_poster = mysqli_query($conn, $query);
+    $deletePoster = mysqli_query($conn, $query);
 
-    if (isset($delete_poster) && $delete_poster === true) {
+    if (isset($deletePoster) && $deletePoster === true) {
 
         $query = "DELETE FROM movies WHERE id_film=$id";
-        $delete_tvmovies = mysqli_query($conn, $query);
+        $deleteTVMovies = mysqli_query($conn, $query);
 
-        if (!$delete_tvmovies) {
+        if (!$deleteTVMovies) {
             $query = "DELETE FROM tvshows WHERE id_film=$id";
-            $delete_tvmovies = mysqli_query($conn, $query);
+            $deleteTVMovies = mysqli_query($conn, $query);
         }
 
-        if (isset($delete_tvmovies) && $delete_tvmovies === true) {
+        if (isset($deleteTVMovies) && $deleteTVMovies === true) {
             $query = "DELETE FROM film WHERE id=$id";
-            $delete_film = mysqli_query($conn, $query);
+            $deleteFilm = mysqli_query($conn, $query);
         }
     }
 }
 
 // when you have successfully deleted the data it will return to the index page
-header("Location:../index.php?delete=" . $delete_film);
+header("Location:../index.php?delete=" . $deleteFilm);

@@ -1,4 +1,4 @@
-<?php foreach ($film_by_genre as $key => $film) : ?>
+<?php foreach ($filmByGenre as $key => $film) : ?>
     <!-- with a condition where there are only 3 cards in one row -->
     <?php if ($key === 0) : ?>
         <div class="row mt-5">

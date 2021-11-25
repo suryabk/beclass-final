@@ -12,13 +12,13 @@
     // get movie data based on each genre from database
     $query = "SELECT * FROM movies, poster, film, genre WHERE movies.id_film = film.id && movies.id_film = poster.id_film && movies.id_genre = genre.id ORDER BY movies.id_genre ASC";
 
-    $get_film_genre = mysqli_query($conn, $query);
+    $getFilmGenre = mysqli_query($conn, $query);
 
     // declare an empty genre array 
     $genres = [];
 
     // add any genre in the genre array based on the data obtained by the database
-    foreach ($get_film_genre as $film) {
+    foreach ($getFilmGenre as $film) {
         array_push($genres, $film['genre']);
     }
 
@@ -44,7 +44,7 @@
             <!-- displays a card containing movie data according to the genre -->
             <?php
             $query = "SELECT * FROM movies, film, genre, poster WHERE film.id = movies.id_film && film.id = poster.id_film && genre.id = movies.id_genre && genre LIKE '$genre'";
-            $film_by_genre = mysqli_query($conn, $query);
+            $filmByGenre = mysqli_query($conn, $query);
 
             //grouping movies based on genre
             include './templates/showAllFilm.php';
